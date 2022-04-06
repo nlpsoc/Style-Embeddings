@@ -1,0 +1,5 @@
+Data/train_data/train-210000__subreddits-100-2018_tasks-300000__topic-variable-conversation.tsv
+Data/train_data/train-210000__subreddits-100-2018_tasks-300000__topic-variable-random.tsv
+Data/train_data/train-210000__subreddits-100-2018_tasks-300000__topic-variable-subreddit.tsv
+_delete
+.ipynb_checkpoints
