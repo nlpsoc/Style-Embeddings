@@ -40,7 +40,7 @@ unittest==?
 
 ## STEL
 
-To run `eval_model.py` with `--stel True` you need access to some code from the STEL project and the STEL data (which includes partly proprietary data). You will need to download How the data is accessible can be changed in 
+To run `eval_model.py` with `--stel True` you need access to some code from the STEL project and the STEL data (which includes partly proprietary data). You will need to download the STEL repo and ask for access to the STEL data (see: https://github.com/nlpsoc/STEL). 
 
 
 
@@ -53,7 +53,7 @@ When you add all necessary (partly proprietary) data to use ALL  functionalities
 ├── Data
 │   └── train_data
 │       ├── GENERATE_100-SUBS-2018_745453.txt 
-│       ├── Task-Statistics.ipynb 
+│       ├── Task-Statistics.ipynb   
 │       ├── author_data.json
 │       ├── dev-45000__subreddits-100-2018_tasks-300000__topic-variable-conversation.tsv
 │       ├── dev-45000__subreddits-100-2018_tasks-300000__topic-variable-random.tsv
@@ -73,7 +73,7 @@ When you add all necessary (partly proprietary) data to use ALL  functionalities
 │   │   ├── generate_dataset.py 	 # script to generate CAV tasks with different CC variables 
 │   │   ├── global_const.py 	 	 # constants & functions that are globally accessible in the project 
 │   │   ├── global_identifiable.py 	 # same as const but including paths/names that are local, like dir paths
-│   │   └── global_identifiable.py 	 # same as const but including paths/names that are local, like dir paths
+│   │   └── SD_calc.ipynp 	 # jupyter notebook to calculate stand devation & means from results
 │   ├── test
 │   │   ├── test_cluster.py 	 	 
 │   │   ├── test_eval_model.py 	
@@ -81,21 +81,38 @@ When you add all necessary (partly proprietary) data to use ALL  functionalities
 │   │   ├── test_neural_trainer.py 	 	
 │   │   └── test_STEL_Or_Content.py 	 
 │   └── utility
-│       ├── test_cluster.py 	 	 
-│       ├── test_eval_model.py 	
-│       ├── test_fine_tune.py 	
-│       ├── test_neural_trainer.py 	 	
-│       └── test_STEL_Or_Content.py 	 
+│       ├── convokit_generator.py 	 	 
+│       ├── evaluation_metrics.py 	
+│       ├── neural_trainer.py 	
+│       ├── plot.py 	 	
+│       ├── plot_utility.py 	 	
+│       ├── statistics_utility.py 	 	
+│       ├── STEL_error_analysis.py 	 	
+│       ├── STEL_Or_Content.py 	 	
+│       ├── trained_similarities.py 	 	
+│       └── plot_utility.py 	 
 ├── LICENSE
-├── readme.md
+├── Readme.md
 └── .gitignore 
 ```
 
-To get some statistics about the training tasks use `Task-Statistics.ipynb`
-
-# 
-
 # Citation
+
+If you find our work or this repository helpful, please consider citing our paper
+
+
+
+```
+@article{wegmann2022style,
+  title={Same Author or Just Same Topic? Towards Content-Independent Style Representations},
+  author={Wegmann, Anna and Schraagen, Marijn and Nguyen, Dong},
+  journal={arXiv preprint arXiv:2204.04907},
+  year={2022}
+}
+```
+
+
 
 # Comments
 
+For comments, problems or questions open an issue or contact Anna (a.m.wegmann@uu.nl). 
