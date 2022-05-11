@@ -24,7 +24,15 @@ print(embeddings)
    4.8512089e-01 -3.2561386e-01]]
 ```
 
+```Python
+from sentence_transformers import util
 
+emb1 = model.encode("This is a red cat with a hat.")
+emb2 = model.encode("Have you seen my red cat?")
+
+cos_sim = util.cos_sim(emb1, emb2)
+print("Cosine-Similarity:", cos_sim)
+```
 
 # Prerequisites
 
