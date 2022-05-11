@@ -33,6 +33,9 @@ emb2 = model.encode("Have you seen my red cat?")
 cos_sim = util.cos_sim(emb1, emb2)
 print("Cosine-Similarity:", cos_sim)
 ```
+```
+Cosine-Similarity: tensor([[0.3599]])
+```
 
 # Prerequisites
 
