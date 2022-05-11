@@ -52,7 +52,6 @@ pytorch==1.7.1
 sentence-transformers==2.1.0
 transformers==4.12.2
 scipy==1.5.2
-unittest==?
 ```
 
 
