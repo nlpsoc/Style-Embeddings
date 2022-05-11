@@ -46,7 +46,7 @@ To run `eval_model.py` with `--stel True` you need access to some code from the 
 
 # Structure
 
-When you add all necessary (partly proprietary) data to use ALL  functionalities, the folder should look something like this. Files  starting with _ include proprietary data (see below). They are not  included in the public release but will need to be acquired. The  Datasets folder contains files that were used to generate STEL. They  were not included because of size. Here, the GYAFC_Corpus also needs  permission from Verizon. Everything else in the Datasets folder can be  downloaded from different sources, see also `to_add_const.py`.
+Below you find a structure of the repository and some comments.
 
 ```python
 .
