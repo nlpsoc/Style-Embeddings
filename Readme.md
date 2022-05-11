@@ -1,5 +1,5 @@
 
-Thank you for your interest in Style Embeddings. This is the code that is part of the `Same Author or Just Same Topic? Towards Content-Independent Style Representations` at the 7th RepL4NLP workshop co-located with ACL 2022.
+Thank you for your interest in Style Embeddings. This is the code that is part of the `Same Author or Just Same Topic? Towards Content-Independent Style Representations` publication at the 7th RepL4NLP workshop co-located with ACL 2022.
 
 In `Data` you can find the generated training (contrastive) AV tasks with `src/style_embed/generate_dataset.py`.  The best-performing style embedding as trained and described in our publication can be found here: https://huggingface.co/AnnaWegmann/Style-Embedding
 
