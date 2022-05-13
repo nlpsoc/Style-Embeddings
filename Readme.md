@@ -5,7 +5,7 @@ In `Data` you can find the generated training (contrastive) AV tasks with `src/s
 
 # Quickstart
 
-You might just want to use the style embedding model and not fine-tune anything or generate authorship verification tasks. If that is the case it is not necessary to to download anything from the repo. Just use the above [huggingface model](https://huggingface.co/AnnaWegmann/Style-Embedding). The Huggingface Hosted Inference API also allows trying sentence similarities without downloading anything btw.
+You might just want to use the style embedding model and not fine-tune anything or generate authorship verification tasks. If that is the case it is not necessary to to download anything from the repo. Just use the above [huggingface model](https://huggingface.co/AnnaWegmann/Style-Embedding). The Huggingface Hosted Inference API also allows trying sentence similarities without downloading anything if you want to just try out a few sentence similarities.
 
 
 ```Python
