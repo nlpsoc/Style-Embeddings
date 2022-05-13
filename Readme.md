@@ -36,7 +36,7 @@ print("Cosine-Similarity:", util.cos_sim(emb1, emb2))
 Cosine-Similarity: tensor([[0.3286]])
 ```
 
-```
+```Python
 emb3 = model.encode("I'm a happy person.")
 print("Cosine-Similarity:", util.cos_sim(emb1, emb3))
 ```
@@ -45,7 +45,7 @@ print("Cosine-Similarity:", util.cos_sim(emb1, emb3))
 Cosine-Similarity: tensor([[0.2709]])
 ```
 
-```
+```Python
 emb4 = model.encode("I think I'm always in style")
 print("Cosine-Similarity:", util.cos_sim(emb1, emb4))
 ```
