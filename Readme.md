@@ -29,16 +29,28 @@ from sentence_transformers import util
 
 emb1 = model.encode("I'm a happy person")
 emb2 = model.encode("I`m a happy person")
-emb3 = model.encode("I'm a happy person.")
-emb4 = model.encode("I think I'm always in style")
-
 print("Cosine-Similarity:", util.cos_sim(emb1, emb2))
-print("Cosine-Similarity:", util.cos_sim(emb1, emb3))
-print("Cosine-Similarity:", util.cos_sim(emb1, emb4))
 ```
+
 ```
 Cosine-Similarity: tensor([[0.3286]])
+```
+
+```
+emb3 = model.encode("I'm a happy person.")
+print("Cosine-Similarity:", util.cos_sim(emb1, emb3))
+```
+
+```
 Cosine-Similarity: tensor([[0.2709]])
+```
+
+```
+emb4 = model.encode("I think I'm always in style")
+print("Cosine-Similarity:", util.cos_sim(emb1, emb4))
+```
+
+```
 Cosine-Similarity: tensor([[0.9715]])
 ```
 
