@@ -27,7 +27,7 @@ print(embeddings)
 ```Python
 from sentence_transformers import util
 
-emb1 = model.encode("I'm happy person")
+emb1 = model.encode("I'm a happy person")
 emb2 = model.encode("I`m a happy person")
 emb3 = model.encode("I'm a happy person.")
 emb4 = model.encode("I think I'm always in style")
