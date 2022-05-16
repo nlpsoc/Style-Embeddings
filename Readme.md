@@ -96,7 +96,6 @@ from global_const import set_logging
 set_logging()
 
 model_w_sim = TunedSentenceBertSimilarity(model=tuner.model)
-# main(model_path, test_files=[test_path], test_stel=False, test_AV=True)
 _evaluate_model(model_w_sim, model_path, [test_path], test_stel=False, test_AV=True)
 ```
 
