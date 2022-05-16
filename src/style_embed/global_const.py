@@ -122,6 +122,8 @@ def set_logging():
     import logging
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO,
                         stream=sys.stdout)
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
 
 
 def set_torch_device():
@@ -186,3 +188,4 @@ def get_results_folder(model_path):
             return f"{RESULTS_FOLDER}/{topic_var}/{base_model}/{loss}/{margin}/{seed}"
     else:
         return f"{RESULTS_FOLDER}/base/{base_model}"
+

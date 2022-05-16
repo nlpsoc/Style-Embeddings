@@ -22,7 +22,7 @@ from global_const import SEED, set_global_seed, set_logging, get_complete_model_
     ID_U2_COL, ID_U1_COL, ID_A_COL, AUTHOR_U2_COL, AUTHOR_U1_COL, AUTHOR_A_COL, U2_COL, U1_COL, ANCHOR_COL
 
 
-sys.path.append(os.path.join('..', 'utility'))
+sys.path.append(os.path.join('..', 'style_embed/utility'))
 from statistics_utility import mean_confidence_interval
 
 set_cache()

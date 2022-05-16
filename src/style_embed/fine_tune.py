@@ -9,10 +9,10 @@ import argparse
 import eval_model
 from typing import List
 
-from global_identifiable import OUTPUT_FOLDER, STRANFORMERS_CACHE
+from global_identifiable import STRANFORMERS_CACHE
 from global_const import HPC_DEV_DATASETS, HPC_TEST_DATASETS, set_logging, SEED
 
-sys.path.append(os.path.join('..', 'utility'))
+sys.path.append(os.path.join('..', 'style_embed/utility'))
 from neural_trainer import SentenceBertFineTuner
 from training_const import BINARY_EVALUATOR, CONTRASTIVE_LOSS, BERT_UNCASED_BASE_MODEL, BATCH_SIZE, EPOCHS, MARGIN
 

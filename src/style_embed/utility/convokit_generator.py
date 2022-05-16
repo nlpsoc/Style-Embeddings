@@ -19,6 +19,8 @@ from typing import List
 #   0 stands for same (or no style change)
 
 # CONSTANTS for Reddit
+import sys
+sys.path.append(os.path.join('../../..', 'style_embed'))
 from global_identifiable import CONVO_CACHE
 from global_const import SUB_LIST, SAMPLE_YEARS, MIN_VALID_UTTS, CONVS_PER_SUB, MIN_COM_PER_CONV, SAME_AUTHOR_AU1_COL, \
     SUBREDDIT_U2_COL, SUBREDDIT_U1_COL, SUBREDDIT_A_COL, CONVERSATION_U2_COL, CONVERSATION_U1_COL, CONVERSATION_A_COL, \
@@ -390,6 +392,7 @@ class TaskGenerator:
             'test authors': self.test_authors, 'test superset': self.test_superset}
         with open(output_dir + '/' + author_data_fname, 'w') as fp:
             json.dump(author_dict, fp, indent=4)
+        return train_filename, dev_filename, test_filename
 
     def load_authors_set_from_json(self, data_dir: str, filename: str = 'author_data.json'):
         with open(data_dir + '/' + filename, 'r') as fp:

@@ -11,7 +11,7 @@ from global_identifiable import OUTPUT_FOLDER, CONVO_CACHE
 from global_const import SUB_LIST, SAMPLE_YEARS, MIN_VALID_UTTS, TOTAL, CONVS_PER_SUB, set_logging, \
     set_global_seed, TOPIC_SUBREDDIT, TOPIC_RANDOM, TOPIC_CONVERSATION
 
-sys.path.append(os.path.join('..', 'utility'))
+sys.path.append(os.path.join('..', 'style_embed/utility'))
 from convokit_generator import TaskGenerator, ConvokitStream
 set_logging()
 

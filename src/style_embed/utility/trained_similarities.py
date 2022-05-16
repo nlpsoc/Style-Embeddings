@@ -42,10 +42,15 @@ class Similarity(ABC):
 
 
 class TunedSentenceBertSimilarity(Similarity):
-    def __init__(self, model_path='../../../models/02_small_reddit/30.000/sbert/'):
+    def __init__(self, model_path=None, model=None):
         super().__init__()
+        assert model_path or model
         self.sbert_model = None
-        self.sbert_path = model_path
+        if model:
+            self.sbert_model = model
+        else:
+            self.sbert_path = model_path
+
 
     def similarity(self, sentence_1: str, sentence_2: str) -> float:
         return self.similarities([sentence_1], [sentence_2])[0]
@@ -58,9 +63,9 @@ class TunedSentenceBertSimilarity(Similarity):
                 # Roberta seems to be initialized with max seq length of 514 leading to errors in encoding
                 self.sbert_model.max_seq_length = 512
             logging.info("Finished loading model ...")
-        from style_similarity import cosine_sim
+        from sentence_transformers.util import cos_sim
         with torch.no_grad():
             self.sbert_model.eval()
-            return [cosine_sim(self.sbert_model.encode(u1, show_progress_bar=False, batch_size=batch_size),
-                               self.sbert_model.encode(u2, show_progress_bar=False, batch_size=batch_size))
+            return [cos_sim(self.sbert_model.encode(u1, show_progress_bar=False, batch_size=batch_size),
+                            self.sbert_model.encode(u2, show_progress_bar=False, batch_size=batch_size)).item()
                     for u1, u2 in zip(sentences_1, sentences_2)]

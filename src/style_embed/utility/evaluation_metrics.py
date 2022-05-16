@@ -11,8 +11,10 @@ import sklearn
 import pandas as pd
 
 from global_identifiable import OUTPUT_FOLDER
-from global_const import generate_file_prefix, SAME_AUTHOR_AU1_COL, U2_COL, U1_COL, ANCHOR_COL
+from global_const import generate_file_prefix, SAME_AUTHOR_AU1_COL, U2_COL, U1_COL, ANCHOR_COL, set_logging
 from plot import plot_sim_values
+set_logging()
+
 
 
 def calc_triple_acc_score(sim_function_callable, triple_task_filename, is_t=False):
@@ -134,8 +136,11 @@ def triple_test_sim_function(similarity_function_callable, triple_task_filename,
     # CALCULATING PERFORMANCE SCORES
     # acc_score, distinct_sims, same_sims, triplets, y_pred, val_class \
     file_base = generate_file_prefix(sim_function_name, triple_task_filename)
+    from pathlib import Path
+    Path(output_folder + "/" + file_base).mkdir(parents=True, exist_ok=True) # https://stackoverflow.com/questions/273192/how-can-i-safely-create-a-nested-directory
     result_dict = calc_triple_acc_score(sim_function_callable=similarity_function_callable,
                                         triple_task_filename=triple_task_filename, is_t="loss-triplet" in file_base)
+    set_logging()
     # print("triple acc score is at {}".format(result_dict["acc_score"]))
     logging.info("triple acc score is at {}".format(result_dict["acc_score"]))
     # logging.info("  triple f1 score is at {}".format(result_dict["trip_f1"]))

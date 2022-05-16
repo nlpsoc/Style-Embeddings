@@ -12,12 +12,12 @@ from global_const import HPC_DEV_DATASETS, HPC_TEST_DATASETS, get_complete_model
 
 set_global_seed()
 set_cache()
-sys.path.append(os.path.join('..', 'utility'))
+sys.path.append(os.path.join('..', 'style_embed/utility'))
 # include module from utility directory
 from trained_similarities import TunedSentenceBertSimilarity
 
 # this needs the STEL project, needs to be accessible for the project to include
-from STEL_Or_Content import test_model_on_STEL
+
 
 SBert = "SBert"
 
@@ -32,6 +32,7 @@ def main(model_path='../../../models/', test_files=HPC_DEV_DATASETS, test_stel=T
     """
 
     set_logging()
+    logging.info("Calling main to evaluate model...")
     model = TunedSentenceBertSimilarity(model_path)
     _evaluate_model(model, model_path, test_files, test_stel, test_AV)
 
@@ -40,9 +41,12 @@ def _evaluate_model(model, model_path, test_files, test_stel, test_AV):
     """
         see main
     """
+    set_logging()
     model_name = get_complete_model_name_from_path(model_path)
     results_folder = get_results_folder(model_path=model_path)
     if test_stel:
+        from STEL_Or_Content import test_model_on_STEL
+
         test_model_on_STEL(model, model_name, results_folder)
 
     if test_AV:

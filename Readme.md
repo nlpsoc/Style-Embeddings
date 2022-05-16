@@ -54,6 +54,63 @@ print("Cosine-Similarity:", util.cos_sim(emb1, emb4))
 Cosine-Similarity: tensor([[0.9715]])
 ```
 
+
+
+## Fine-tuning 
+
+If you want to fine-tune a RoBERTa model based on the CAV task, you will need the provided code. 
+
+First step: generate the training task based on [convokit](https://convokit.cornell.edu/) . If you want to use your own conversation data, you will need to first load it in convokit corpus format. For example, [via a pandas dataframe](https://github.com/CornellNLP/Cornell-Conversational-Analysis-Toolkit/blob/master/examples/corpus_from_pandas.ipynb).
+
+```python
+from utility.convokit_generator import TaskGenerator
+from global_const import TOPIC_CONVERSATION
+
+# these can take some time depending on your data size ...
+cav_gen = TaskGenerator(convokit_data_keys=["subreddit-ApplyingToCollege"], years=[2018], total=10)
+cav_gen._get_data_split(topic_variable=TOPIC_CONVERSATION)
+train_path, dev_path, test_path = cav_gen.save_data_split(output_dir=".", topic_variable=TOPIC_CONVERSATION)
+```
+
+Second step: use the generated data as a fine-tuning task.
+
+```python
+from utility.neural_trainer import SentenceBertFineTuner
+from utility.training_const import TRIPLET_LOSS, TRIPLET_EVALUATOR
+
+tuner = SentenceBertFineTuner(model_path="roberta-base", train_filename=train_path, dev_filename=dev_path, loss=TRIPLET_LOSS, evaluation_type=TRIPLET_EVALUATOR)
+model_path = tuner.train(epochs=1, batch_size=8)
+
+from sentence_transformers import util
+emb1 = tuner.model.encode("I'm a happy person")
+emb4 = tuner.model.encode("I'm a happy person.")
+print("Cosine-Similarity:", util.cos_sim(emb1, emb4))
+```
+
+Third step: evaluating the trained model (without the STEL directory)
+
+```python
+from eval_model import _evaluate_model
+from utility.trained_similarities import TunedSentenceBertSimilarity
+from global_const import set_logging
+set_logging()
+
+model_w_sim = TunedSentenceBertSimilarity(model=tuner.model)
+# main(model_path, test_files=[test_path], test_stel=False, test_AV=True)
+_evaluate_model(model_w_sim, model_path, [test_path], test_stel=False, test_AV=True)
+```
+
+Evaluating WITH STEL (needs the downloaded repo on the same level as style-embeddings)
+
+```python
+from global_identifiable import include_STEL_project 
+include_STEL_project()
+
+_evaluate_model(model_w_sim, model_path, [test_path], test_stel=True, test_AV=False)
+```
+
+
+
 # Prerequisites
 
 To run most functionalities you will only need to have the necessary **Python Packages** installed. To run all evaluations (i.e., including the STEL tasks), you will need to have access to **[STEL](https://github.com/nlpsoc/stel)** data and code.

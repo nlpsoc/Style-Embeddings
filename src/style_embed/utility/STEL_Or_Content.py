@@ -8,6 +8,8 @@ import logging
 # needs access to https://github.com/nlpsoc/STEL
 from global_identifiable import include_STEL_project
 include_STEL_project()
+
+
 import eval_style_models
 from set_for_global import ALTERNATIVE12_COL, ALTERNATIVE11_COL, ANCHOR2_COL, CORRECT_ALTERNATIVE_COL
 
@@ -37,12 +39,10 @@ def test_model_on_STEL(model, model_name, results_folder):
 
     """
     logging.info("testing model on STEl ... ")
-    import os
-    cur_dir = os.path.dirname(os.path.realpath(__file__))
-    dim_path = [cur_dir + '/../../../STEL/Data/STEL/dimensions/_quad_stel-dimensions_formal-815_complex-815.tsv']
+    from global_identifiable import STEL_PATH_DIM
     stel_pred_filename = f"{results_folder}/03_STEL_single-predictions_{model_name}__{time.time()}.tsv"
     result_dict = eval_style_models.eval_sim(output_folder=results_folder, style_objects=[model],
-                                             stel_dim_tsv=dim_path, single_predictions_save_path=stel_pred_filename)
+                                             stel_dim_tsv=STEL_PATH_DIM, single_predictions_save_path=stel_pred_filename)
     pd_stel_instances = result_dict["stel_tasks"]
     # test on "content-adapted" STEL (STEL-Or-Content in the paper), i.e.,
     #   A, SA have same topic but distinct style and A, DA have distinct topic but same style

@@ -1,12 +1,12 @@
 from unittest import TestCase
+import logging
 
 import eval_model
-import set_for_global
+import global_const
 
-set_for_global.set_logging()
-from global_identifiable import include_STEL_project
-
-include_STEL_project()
+global_const.set_logging()
+# from global_identifiable import include_STEL_project
+# include_STEL_project()
 
 
 class Test(TestCase):
@@ -24,6 +24,7 @@ class Test(TestCase):
                           "train-7__subreddits-2_year-2018-2018_tasks-10_topic_variable-conversation.tsv"
         self.rand_train = self.base_dir + "train-7__subreddits-2_year-2018-2018_tasks-10_topic_variable-random.tsv"
 
+        self.error = "../style_embed/test-1__subreddits-1_year-2018-2018_tasks-10_topic_variable-conversation.tsv"
         # STEL proprietary data include (comment if not present)
         import os
         cur_dir = os.path.dirname(os.path.realpath(__file__))
@@ -31,8 +32,11 @@ class Test(TestCase):
 
     def test_main_wo_STEL(self):
         # test eval run for a base model and fixed small train data in fixtures/train_data
+        global_const.set_logging()
+        logging.info("Starting to test eval model..")
+        logging.info("Starting to test eval model..")
         eval_model.main(model_path=self.base_model,
-                        test_files=[self.conv_train, self.rand_train], test_stel=False)
+                        test_files=[self.error], test_stel=False)
 
     def test_base_model_w_STEL(self):
         # also run on STEL
