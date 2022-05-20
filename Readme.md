@@ -24,7 +24,7 @@ print(embeddings)
    4.8512089e-01 -3.2561386e-01]]
 ```
 
-Let's calculate the sentence similarity between two sentences with our new style model. We use a prallel example with formal vs. informal style from [GYAFC](https://aclanthology.org/N18-1012/). See also Figure 2 in our paper. 
+Let's calculate the sentence similarity between two sentences with our new style model. We use a parallel example with formal vs. informal style from [GYAFC](https://aclanthology.org/N18-1012/). See also Figure 2 in our paper. 
 ```Python
 from sentence_transformers import util
 
