@@ -27,33 +27,22 @@ print(embeddings)
 ```Python
 from sentence_transformers import util
 
-emb1 = model.encode("I'm a happy person")
-emb2 = model.encode("I`m a happy person")
+emb1 = model.encode("r u a fan of them or something?")
+emb2 = model.encode("Are you one of their fans?")
 print("Cosine-Similarity:", util.cos_sim(emb1, emb2))
 ```
 
 ```
-Cosine-Similarity: tensor([[0.3286]])
+Cosine-Similarity: tensor([[0.078]])
 ```
 
 ```Python
-emb3 = model.encode("I'm a happy person.")
-print("Cosine-Similarity:", util.cos_sim(emb1, emb3))
+print("Cosine-Similarity:", util.cos_sim(model.encode("r u a fan of them or something?"), model.encode("Oh yea and that young dr got a bad haircut")))
 ```
 
 ```
-Cosine-Similarity: tensor([[0.2709]])
+Cosine-Similarity: tensor([[0.745]])
 ```
-
-```Python
-emb4 = model.encode("I think I'm always in style")
-print("Cosine-Similarity:", util.cos_sim(emb1, emb4))
-```
-
-```
-Cosine-Similarity: tensor([[0.9715]])
-```
-
 
 
 ## Fine-tuning 
