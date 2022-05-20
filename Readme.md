@@ -60,7 +60,7 @@ Cosine-Similarity: tensor([[0.9715]])
 
 If you want to fine-tune a RoBERTa model based on the CAV task, you will need the provided code. 
 
-First step: generate the training task based on [convokit](https://convokit.cornell.edu/) . If you want to use your own conversation data, you will need to first load it in convokit corpus format. For example, [via a pandas dataframe](https://github.com/CornellNLP/Cornell-Conversational-Analysis-Toolkit/blob/master/examples/corpus_from_pandas.ipynb).
+First step: generate the training task based on [convokit](https://convokit.cornell.edu/). If you want to use your own conversation data, you will need to first load it in convokit corpus format. For example, [via a pandas dataframe](https://github.com/CornellNLP/Cornell-Conversational-Analysis-Toolkit/blob/master/examples/corpus_from_pandas.ipynb).
 
 ```python
 from utility.convokit_generator import TaskGenerator
