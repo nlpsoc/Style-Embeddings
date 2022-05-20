@@ -7,7 +7,7 @@ In `Data` you can find the generated training (contrastive) AV tasks with `src/s
 
 You might just want to use the style embedding model and not fine-tune anything or generate authorship verification tasks. If that is the case it is not necessary to to download anything from the repo. Just use the above [huggingface model](https://huggingface.co/AnnaWegmann/Style-Embedding). The Huggingface Hosted Inference API also allows calculating sentence similarities without downloading anything if you want to just try out a few sentence similarities.
 
-
+To load the model from the huggingface hub and encode a sentence:
 ```Python
 from sentence_transformers import SentenceTransformer
 sentences = ["This is an example sentence", "Each sentence is converted"]
@@ -24,11 +24,12 @@ print(embeddings)
    4.8512089e-01 -3.2561386e-01]]
 ```
 
+Let's calculate the sentence similarity between two sentences. We use an formal/informal example from [GYAFC](https://aclanthology.org/N18-1012/) that we also use as an example in our paper. 
 ```Python
 from sentence_transformers import util
 
-emb1 = model.encode("r u a fan of them or something?")
-emb2 = model.encode("Are you one of their fans?")
+emb1 = model.encode("r u a fan of them or something?")  # more informal sentence
+emb2 = model.encode("Are you one of their fans?")  # more formal sentence with similar content to emb1
 print("Cosine-Similarity:", util.cos_sim(emb1, emb2))
 ```
 
@@ -37,7 +38,7 @@ Cosine-Similarity: tensor([[0.078]])
 ```
 
 ```Python
-emb3 = model.encode("Oh yea and that young dr got a bad haircut")
+emb3 = model.encode("Oh yea and that young dr got a bad haircut")  # more informal sentence with different content from emb1
 print("Cosine-Similarity:", util.cos_sim(emb1, emb3))
 ```
 
