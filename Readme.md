@@ -37,7 +37,8 @@ Cosine-Similarity: tensor([[0.078]])
 ```
 
 ```Python
-print("Cosine-Similarity:", util.cos_sim(model.encode("r u a fan of them or something?"), model.encode("Oh yea and that young dr got a bad haircut")))
+emb3 = model.encode("Oh yea and that young dr got a bad haircut")
+print("Cosine-Similarity:", util.cos_sim(emb1, emb3))
 ```
 
 ```
