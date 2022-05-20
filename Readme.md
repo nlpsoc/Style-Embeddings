@@ -28,8 +28,8 @@ Let's calculate the sentence similarity between two sentences with our new style
 ```Python
 from sentence_transformers import util
 
-emb1 = model.encode("r u a fan of them or something?")  # more informal sentence
-emb2 = model.encode("Are you one of their fans?")  # more formal sentence with similar content to emb1
+emb1 = model.encode("r u a fan of them or something?")  # more informal
+emb2 = model.encode("Are you one of their fans?")  # more formal, similar content to emb1
 print("Cosine-Similarity:", util.cos_sim(emb1, emb2))
 ```
 
@@ -38,7 +38,7 @@ Cosine-Similarity: tensor([[0.078]])
 ```
 
 ```Python
-emb3 = model.encode("Oh yea and that young dr got a bad haircut")  # more informal sentence with different content from emb1
+emb3 = model.encode("Oh yea and that young dr got a bad haircut")  # more informal, different content to emb1
 print("Cosine-Similarity:", util.cos_sim(emb1, emb3))
 ```
 
