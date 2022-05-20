@@ -24,7 +24,7 @@ print(embeddings)
    4.8512089e-01 -3.2561386e-01]]
 ```
 
-Let's calculate the sentence similarity between two sentences. We use an formal/informal example from [GYAFC](https://aclanthology.org/N18-1012/) that we also use as an example in our paper. 
+Let's calculate the sentence similarity between two sentences. We use a formal/informal example from [GYAFC](https://aclanthology.org/N18-1012/) that we also use as an example in our paper. 
 ```Python
 from sentence_transformers import util
 
