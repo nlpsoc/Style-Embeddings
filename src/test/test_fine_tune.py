@@ -20,3 +20,4 @@ class Test(TestCase):
 
         main(train_file=self.sub_train, dev_file=self.sub_dev, model_key="bert-base-uncased", loss="contrastive",
              margin=margin, cache_folder=self.cache_folder, batch_size=2, eval=False, epochs=1)
+

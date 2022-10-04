@@ -1,8 +1,13 @@
 from unittest import TestCase
 import logging
 
+from sentence_transformers import SentenceTransformer
+
 import eval_model
 import global_const
+from eval_model import _evaluate_model
+from global_const import set_logging
+from trained_similarities import TunedSentenceBertSimilarity
 
 global_const.set_logging()
 # from global_identifiable import include_STEL_project
@@ -42,3 +47,19 @@ class Test(TestCase):
         # also run on STEL
         eval_model.main(model_path=self.base_model, test_files=[self.conv_train, self.rand_train], test_stel=True)
 
+    def test_wo_STEL_orgmodel(self):
+        from sentence_transformers import SentenceTransformer
+        from utility.trained_similarities import TunedSentenceBertSimilarity
+        from eval_model import _evaluate_model
+        from global_const import set_logging
+        set_logging()
+
+        model_path = "/home/anna/Documents/UU/Style-Embeddings/Data/Models/AV-Domain_seed-105"
+        # test_path = "/home/anna/Documents/UU/Style-Embeddings/Data/train_data/" \
+        #             "test-45000__subreddits-100-2018_tasks-300000__topic-variable-conversation.tsv"
+        test_path = "fixtures/train_data/train-7__subreddits-2_year-2018-2018_tasks-10_topic_variable-conversation.tsv"
+
+        model = SentenceTransformer('AnnaWegmann/Style-Embedding')
+
+        model_w_sim = TunedSentenceBertSimilarity(model=model)
+        _evaluate_model(model_w_sim, model_path, [test_path], test_stel=False, test_AV=True)

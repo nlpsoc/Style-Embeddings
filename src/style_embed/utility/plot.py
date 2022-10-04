@@ -31,9 +31,8 @@ def plot_sim_values(gtp_sim_val, gtn_sim_val, plot_filebase, size=1, median=None
     """
     plt.figure()
     # Prepare data as pandas dataframe
-    dfs = pd.DataFrame({'Label': np.zeros(len(gtp_sim_val)), 'Similarity Value': tensorarray_to_array(gtp_sim_val)})
-    dfd = pd.DataFrame({'Label': np.ones(len(gtn_sim_val)), 'Similarity Value': tensorarray_to_array(gtn_sim_val)})
-    df = pd.concat([dfs, dfd])  # ignore_index=True
+    df = pd.DataFrame({'Label': [0]*(len(gtp_sim_val)) + [1]*(len(gtn_sim_val)),
+                        'Similarity Value': tensorarray_to_array(gtp_sim_val) + tensorarray_to_array(gtn_sim_val)})
 
     sns.set_theme(style="ticks")
     graph = sns.catplot(x='Label', y='Similarity Value', data=df, s=size)  # dropna=True)
@@ -56,14 +55,10 @@ def plot_sim_values(gtp_sim_val, gtn_sim_val, plot_filebase, size=1, median=None
     plt.figure()
 
     # Prepare data as pandas dataframe
-    dfs = pd.DataFrame({'Distinct Author': np.zeros(len(gtp_sim_val)),
-                        'Similarity Value': tensorarray_to_array(gtp_sim_val)})
-    dfd = pd.DataFrame({'Distinct Author': np.ones(len(gtn_sim_val)),
-                        'Similarity Value': tensorarray_to_array(gtn_sim_val)})
-    df = pd.concat([dfs, dfd]) # , ignore_index=True)  # ignore_index=True
-    graph = sns.displot(df, x="Similarity Value", hue="Distinct Author", kind="kde", fill=True)  #  , cut=0) sns.kdeplot(df,  x="Similarity Value", shade=False, color='crimson')  #
-    # graph = sns.kdeplot(data=df, x="Similarity Value", shade=False)  #
-    means = dfs['Similarity Value'].mean()
+    df = pd.DataFrame({'Distinct Author': [0]*(len(gtp_sim_val)) + [1]*(len(gtn_sim_val)),
+                        'Similarity Value': tensorarray_to_array(gtp_sim_val) + tensorarray_to_array(gtn_sim_val)})
+    graph = sns.displot(df, x="Similarity Value", hue="Distinct Author", kind="kde", fill=True)
+
 
     x_label = "Similarity Value"
     y_label = "Density"
