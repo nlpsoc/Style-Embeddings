@@ -5,7 +5,7 @@ In `Data` you can find the generated training (contrastive) AV tasks with `src/s
 
 # Quickstart
 
-You might just want to use the style embedding model and not fine-tune anything or generate authorship verification tasks. If that is the case it is not necessary to to download anything from the repo. Just use the above [huggingface model](https://huggingface.co/AnnaWegmann/Style-Embedding). The Huggingface Hosted Inference API also allows calculating sentence similarities without downloading anything if you want to just try out a few sentence similarities.
+You might just want to use the best style embedding model we trained (RoBERTa trained on the CAV task with the conversation CC and seed 106) and not fine-tune anything or generate authorship verification tasks. If that is the case it is not necessary to to download anything from the repo. Just use the above [huggingface model](https://huggingface.co/AnnaWegmann/Style-Embedding). The Huggingface Hosted Inference API also allows calculating sentence similarities without downloading anything if you want to just try out a few sentence similarities.
 
 To load the model from the huggingface hub and encode a sentence:
 ```Python
