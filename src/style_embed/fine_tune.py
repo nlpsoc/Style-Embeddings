@@ -35,6 +35,7 @@ def main(train_file: str = None, dev_file: str = None, test_files: List[str] = N
             return
         logging.info("Given model type " + str(model_type))
         logging.info("Starting training on " + train_file)
+        logging.info("This might throw some deprecation warnings with Python 3.9 or higher and convokit")
         save_dir = tuna.train(epochs=epochs, batch_size=batch_size, profile=profile)
 
         if eval:

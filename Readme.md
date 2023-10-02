@@ -117,6 +117,7 @@ sentence-transformers==2.1.0
 transformers==4.12.2
 scipy==1.5.2
 convokit==2.4.3
+memory-profiler
 ```
 
 
