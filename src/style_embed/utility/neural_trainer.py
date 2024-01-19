@@ -5,6 +5,8 @@
 import logging
 import math
 from typing import NewType, Any
+
+import transformers
 from memory_profiler import profile
 from global_const import set_global_seed, SEED
 
@@ -22,7 +24,7 @@ import sys, os
 sys.path.append(os.path.join('', 'utility'))
 from training_const import TRIPLET_EVALUATOR, BINARY_EVALUATOR, TRIPLET_LOSS, CONTRASTIVE_ONLINE_LOSS, \
     CONTRASTIVE_LOSS, COSINE_LOSS, UNCASED_TOKENIZER, BATCH_SIZE, EVAL_BATCH_SIZE, EPOCHS, WARMUP_STEPS, LEARNING_RATE,\
-    EVALUATION_STEPS, MARGIN, EPS, CORRECT_BIAS, ROBERTA_BASE
+    EVALUATION_STEPS, MARGIN, EPS, ROBERTA_BASE
 
 # Typing
 InputDataClass = NewType("InputDataClass", Any)
@@ -60,6 +62,8 @@ class SentenceBertFineTuner:
         set_global_seed(seed=self.seed, w_torch=True)
 
         if not debug:
+            logging.info(f"Calling init from sentence-transformer which is throwing a warning when you use "
+                         f"fine-tuning with a base model")
             self.model = SentenceTransformer(model_path, cache_folder=cache_folder)
             if model_path == ROBERTA_BASE:
                 # Roberta seems to be initialized with max seq length of 514 leading to errors in encoding
@@ -104,7 +108,7 @@ class SentenceBertFineTuner:
 
     @profile(backend='tracemalloc')
     def train(self, epochs=EPOCHS, batch_size=BATCH_SIZE, warmup_steps=WARMUP_STEPS, evaluation_steps=EVALUATION_STEPS,
-              learning_rate=LEARNING_RATE, eps=EPS, correct_bias=CORRECT_BIAS, load_best_model=False, profile=False,
+              learning_rate=LEARNING_RATE, eps=EPS, load_best_model=False, profile=False,
               eval_batch_size=EVAL_BATCH_SIZE, debug_dataloader=False):
         # see also:
         # https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/sts/training_stsbenchmark_continue_training.py
@@ -163,6 +167,11 @@ class SentenceBertFineTuner:
         warmup_steps = math.ceil(len(train_dataloader) * epochs * 0.1)  # 10% of train data for warm-up
         logging.info("Warmup-steps: {}".format(warmup_steps))
 
+        # throws warning with newer transformers version
+        #   see https://stackoverflow.com/questions/62691279/how-to-disable-tokenizers-parallelism-true-false-warning/72926996#72926996
+        #   might be possible to avoid with using a different dataloader approach
+        #   this should NOT change the result but "just" slow down training
+
         self.model.fit(train_objectives=[(train_dataloader, train_loss)],
                        evaluator=evaluator,
                        epochs=epochs,
@@ -170,10 +179,16 @@ class SentenceBertFineTuner:
                        warmup_steps=warmup_steps,
                        output_path=self.save_dir,
                        save_best_model=True,
+                       # optimizer_class=transformers.AdamW
+                       #    the above is previous huggingface optimizer that has a correct_bias param
+                       #    now the optimizer is the torch class torch.optim.AdamW without a correct_bias param
+                       #    see https://github.com/UKPLab/sentence-transformers/commit/bcc6e195a2a105d0513b6219a83bae3f95903d85
+                       #    as far as I can tell bias correction is always done for torch.optim.AdamW
+                       #        see: https://pytorch.org/docs/stable/_modules/torch/optim/adamw.html#AdamW
                        optimizer_params={
                            'lr': learning_rate,
                            'eps': eps,
-                           'correct_bias': correct_bias
+                           # 'correct_bias': correct_bias  # not allowed for transformers.optim.AdamW
                        },
                        callback=SentenceBertFineTuner.callback_test
                        )
