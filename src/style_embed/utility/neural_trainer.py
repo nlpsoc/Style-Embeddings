@@ -236,7 +236,7 @@ class SentenceBertFineTuner:
                                        SAME_AUTHOR_AU1_COL: int})
         for row_id, row in task_data.iterrows():
             # naive CUT OFF strings to a maximum of 512 word word pieces to reduce batch memory load
-            a = row[ANCHOR_COL][:sum([len(t) + 1 for t in tokenizer.tokenize(row[ANCHOR_COL][:520])])]
+            a = row[ANCHOR_COL][:sum([len(t) + 1 for t in tokenizer.tokenize(row[ANCHOR_COL])[:520]])]
             u1 = row[U1_COL][:sum([len(t) + 1 for t in tokenizer.tokenize(row[U1_COL])[:520]])]
             u2 = row[U2_COL][:sum([len(t) + 1 for t in tokenizer.tokenize(row[U2_COL])[:520]])]
             if as_float:
